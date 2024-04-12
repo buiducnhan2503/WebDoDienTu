@@ -18,7 +18,6 @@ namespace WebDoDienTu.Controllers
         {
             // Lấy dữ liệu từ database và gán cho MyModel
             MyModel model = new MyModel();
-
             // Gán dữ liệu vào MyModel
             model.Products = _context.Products.ToList();
             model.Categories = _context.Categories.ToList();

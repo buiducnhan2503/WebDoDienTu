@@ -19,7 +19,7 @@ namespace WebDoDienTu.Controllers
             model.Products = _context.Products.ToList();
             model.Categories = _context.Categories.ToList();
 
-            return View(model);
+            return View();
         }
     }
 }

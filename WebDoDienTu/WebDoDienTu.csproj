@@ -19,4 +19,17 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\admin\assets\demo\chart-area-demo.js" />
+    <None Include="wwwroot\admin\assets\demo\chart-bar-demo.js" />
+    <None Include="wwwroot\admin\assets\demo\chart-pie-demo.js" />
+    <None Include="wwwroot\admin\assets\demo\datatables-demo.js" />
+    <None Include="wwwroot\admin\assets\img\error-404-monochrome.svg" />
+  </ItemGroup>
+
 </Project>
