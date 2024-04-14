@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebDoDienTu.Models.Repository;
 using WebDoDienTu.Models;
 using Microsoft.AspNetCore.Identity;
+using WebDoDienTu.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IProductRepository, EFProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
