@@ -74,6 +74,7 @@ namespace WebDoDienTu.Controllers
                 if (cart == null || !cart.Items.Any())
                 {
                     // Xử lý giỏ hàng trống...
+                    TempData["EmptyCartMessage"] = "Giỏ hàng của bạn hiện đang trống.";
                     return RedirectToAction("Index");
                 }
                 var user = await _userManager.GetUserAsync(User);
@@ -91,6 +92,7 @@ namespace WebDoDienTu.Controllers
                 HttpContext.Session.Remove("Cart");
                 return View("OrderCompleted", order.Id);
             }
+            TempData["ModelState"] = "Vui lòng điền đầy đủ thông tin.";
             return View(order);
         }
     }

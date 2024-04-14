@@ -5,13 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Tables</h1>
+        <h1 class="mt-4">Danh mục sản phẩm</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Dashboard</a></li>
-            <li class="breadcrumb-item active">Tables</li>
+            <li class="breadcrumb-item active">Product</li>
         </ol>
         <div class="card mb-4">
             <div class="card-body">
@@ -21,7 +20,6 @@
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                DataTable Example
             </div>
             <div class="card-body">
                 <table id="datatablesSimple">
@@ -31,7 +29,6 @@
                             <th>@Html.DisplayNameFor(model => model.Price)</th>
                             <th>@Html.DisplayNameFor(model => model.Description)</th>
                             <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
-                            <th>@Html.DisplayNameFor(model => model.IsHoted)</th>
                             <th>@Html.DisplayNameFor(model => model.Category)</th>
                             <th>Sửa</th>
                             <th>Xem</th>
@@ -44,7 +41,6 @@
                             <th>@Html.DisplayNameFor(model => model.Price)</th>
                             <th>@Html.DisplayNameFor(model => model.Description)</th>
                             <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
-                            <th>@Html.DisplayNameFor(model => model.IsHoted)</th>
                             <th>@Html.DisplayNameFor(model => model.Category)</th>
                             <th>Sửa</th>
                             <th>Xem</th>
@@ -57,10 +53,9 @@
                         {
                             <tr>
                                 <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Price) VND</td>
                                 <td>@Html.DisplayFor(modelItem => item.Description)</td>
                                 <td><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" style="width:100px" /> <img /></td>
-                                <td>@Html.DisplayFor(modelItem => item.IsHoted)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Category.CategoryName)</td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.ProductId"><i class="fa-regular fa-pen-to-square"></i></a>

@@ -177,7 +177,7 @@
 
 /*** Hero Header ***/
 .hero-header {
-    background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1));
+    background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url(../image/technology-banner-copy-space-template-with-man-typing-on-a-laptop-photo.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

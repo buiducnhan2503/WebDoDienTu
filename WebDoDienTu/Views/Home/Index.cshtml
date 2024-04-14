@@ -67,52 +67,18 @@
                             <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link">Trang chủ</a>
                             <a asp-area="" asp-controller="Blog" asp-action="Index" class="nav-item nav-link">Tin tức</a>
                             <a asp-area="" asp-controller="Product" asp-action="Index" class="nav-item nav-link">Mua sắm</a>
-                           @*  <div class="nav-item dropdown">
-                                <a href="#SanPham" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Sản phẩm</a>                                 
-                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    @{
-                                        foreach (var item in Model.Categories)
-                                        {
-                                            <a href="@Url.Action("ProductCategory", "Category", new { Id = item.CategoryId })" class="dropdown-item">@item.CategoryName</a>
-                                        }
-                                    }
-                                            <a href="@Url.Action("Index", "Product")" class="dropdown-item">Tất cả</a>
-                                    </div> 
-                            </div> *@
-                                <a asp-area="" asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
+                            <a asp-area="" asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
                         </div>
                         <div class="d-flex m-3 me-0">
                             <partial name="_LoginPartial" />
                             <a asp-area="" asp-controller="Cart" asp-action="Index" class="position-relative me-4 my-auto">
                             <i class="fa fa-shopping-bag fa-2x"></i></a>
-@*                             <a href="@Url.Action("Index", "Account")" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a> *@
                         </div>
                     </div>
                 </nav>
             </div>
         </div>
         <!-- Navbar End -->
-
-        <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tìm kiếm</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Search End -->
 
         <!-- Hero Start -->
         <div class="container-fluid py-5 mb-5 hero-header">
@@ -121,12 +87,15 @@
                     <div class="col-md-12 col-lg-7">
                         <h4 class="mb-3 text-secondary">Sản phẩm hiện đại</h4>
                         <h1 class="mb-5 display-3 text-primary">Moden & Convenient Products</h1>
+                        @using(Html.BeginForm("Index", "Product", FormMethod.Post))
+                        {
                             <div class="position-relative mx-auto">
-                                <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Search">
+                                <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="search" name="keywords" placeholder="Search">
                                 <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Tìm kiếm</button>
                             </div>
+                        }
                     </div>
-                    <div class="col-md-12 col-lg-5">
+                    @* <div class="col-md-12 col-lg-5">
                         <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item rounded">
@@ -151,7 +120,7 @@
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
@@ -166,14 +135,7 @@
                             <h1>Sản phẩm</h1>
                         </div>
                         <div class="col-lg-8 text-end">
-                            <ul class="nav nav-pills d-inline-flex text-center mb-5">
-
-@*                              <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-1">
-                                        <span class="text-dark" style="width: 130px;">Tất cả</span>
-                                    </a>
-                                </li> *@
-              
+                            <ul class="nav nav-pills d-inline-flex text-center mb-5">          
                                 <li class="nav-item">
                                     <a class="d-flex py-2 m-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-2">
                                         <span class="text-dark" style="width: 130px;">Điện thoại</span>
@@ -198,46 +160,6 @@
                         </div>
                     </div>
                     <div class="tab-content">
-
-@*                         <div id="tab-1" class="tab-pane fade show p-0 active">
-                            <div class="row g-4">
-                                <div class="col-lg-12">
-                                    <div class="row g-4">
-
-                                        @{
-                                            int count = 0;
-                                        }
-                                        @foreach (var product in Model)
-                                        {
-                                            if (count < 8)
-                                            {
-                                                <div class="col-md-6 col-lg-4 col-xl-3">
-                                                    <div class="rounded position-relative fruite-item">
-                                                        <div class="fruite-img">
-                                                            <img src="@Html.DisplayFor(modelItem => product.ImageUrl)" class="img-fluid w-100 rounded-top" alt="">
-                                                        </div>
-                                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                            <h4>@Html.DisplayFor(modelItem => product.Name)</h4>
-                                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                                <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price)</p>
-                                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                count++;
-                                            }
-                                            else
-                                            {
-                                                break; // Dừng vòng lặp sau khi đã hiển thị 10 sản phẩm
-                                            }
-                                        }
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div> *@
-
                         <div id="tab-2" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
                                 <div class="col-lg-12">
@@ -258,7 +180,7 @@
                                                     <h4><a asp-action="Details" asp-controller="Product" asp-route-id="@product.ProductId">@Html.DisplayFor(modelItem => product.ProductName)</a></h4>
                                                         <p>@Html.DisplayFor(modelItem => product.Description)</p>
                                                         <div class="d-flex justify-content-between flex-lg-wrap">
-                                                            <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price)</p>
+                                                            <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price) VND</p>
                                                             <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@product.ProductId" asp-route-quantity="@quality" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
                                                         </div>
                                                     </div>
@@ -297,7 +219,7 @@
                                                             <h4><a href="#">@Html.DisplayFor(modelItem => product.ProductName)</a></h4>
                                                             <p>@Html.DisplayFor(modelItem => product.Description)</p>
                                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                                <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price)</p>
+                                                            <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price) VND</p>
                                                                 <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@product.ProductId" asp-route-quantity="@quality" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
                                                             </div>
                                                         </div>
@@ -338,7 +260,7 @@
                                                             <h4><a href="#">@Html.DisplayFor(modelItem => product.ProductName)</a></h4>
                                                             <p>@Html.DisplayFor(modelItem => product.Description)</p>
                                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                                <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price)</p>
+                                                            <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price) VND</p>
                                                                 <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@product.ProductId" asp-route-quantity="@quality" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
                                                             </div>
                                                         </div>
@@ -377,7 +299,7 @@
                                                             <h4><a href="#">@Html.DisplayFor(modelItem => product.ProductName)</a></h4>
                                                             <p>@Html.DisplayFor(modelItem => product.Description)</p>
                                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                                <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price)</p>
+                                                            <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price) VND</p>
                                                                 <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@product.ProductId" asp-route-quantity="@quality" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
                                                             </div>
                                                         </div>
@@ -447,7 +369,7 @@
                                     <h4><a href="#">@Html.DisplayFor(modelItem => product.ProductName)</a></h4>
                                         <p>@Html.DisplayFor(modelItem => product.Description)</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
-                                        <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price)</p>
+                                        <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => product.Price) VND</p>
                                         <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@product.ProductId" asp-route-quantity="@quality" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
                                         </div>
                                     </div>

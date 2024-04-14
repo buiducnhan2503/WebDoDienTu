@@ -31,7 +31,7 @@ namespace WebDoDienTu.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View();
         }
 
@@ -63,18 +63,18 @@ namespace WebDoDienTu.Areas.Admin.Controllers
             }
             // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
             var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View(product);
         }
 
         private async Task<string?> SaveImage(IFormFile image)
         {
-            var savePath = Path.Combine("wwwroot/images", image.FileName); // Thay đổi đường dẫn theo cấu hình của bạn
+            var savePath = Path.Combine("wwwroot/image", image.FileName); // Thay đổi đường dẫn theo cấu hình của bạn
             using (var fileStream = new FileStream(savePath, FileMode.Create))
             {
                 await image.CopyToAsync(fileStream);
             }
-            return "/images/" + image.FileName; // Trả về đường dẫn tương đối
+            return "/image/" + image.FileName; // Trả về đường dẫn tương đối
         }
 
         // Hiển thị thông tin chi tiết sản phẩm
@@ -90,7 +90,7 @@ namespace WebDoDienTu.Areas.Admin.Controllers
         }
 
         // Hiển thị form cập nhật sản phẩm
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
             if (product == null)
@@ -98,13 +98,13 @@ namespace WebDoDienTu.Areas.Admin.Controllers
                 return NotFound();
             }
             var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId);
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName", product.CategoryId);
             return View(product);
         }
 
         // Xử lý cập nhật sản phẩm
         [HttpPost]
-        public async Task<IActionResult> Update(Product product, IFormFile imageUrl)
+        public async Task<IActionResult> Edit(Product product, IFormFile imageUrl)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +119,7 @@ namespace WebDoDienTu.Areas.Admin.Controllers
 
             // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
             var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View(product);
         }
 

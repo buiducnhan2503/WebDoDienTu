@@ -14,6 +14,13 @@
 </div>
 <!-- Single Page Header End -->
 
+@if (TempData["EmptyCartMessage"] != null)
+{
+    <div style="margin-top:25px" class="alert alert-warning" role="alert">
+        @TempData["EmptyCartMessage"]
+    </div>
+}
+
 <!-- Cart Page Start -->
 <div class="container-fluid py-5">
     <a asp-controller="Product" asp-action="Index">
@@ -82,8 +89,7 @@
                     </div>
                     <a asp-action="Checkout">
                         <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Tiến hành thanh toán</button>
-                    </a>
-                    
+                    </a>                  
                 </div>
             </div>
         </div>
