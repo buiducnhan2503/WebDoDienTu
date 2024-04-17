@@ -1,10 +1,9 @@
 ﻿@model WebDoDienTu.Models.Order
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 
 
 <main>
@@ -12,13 +11,12 @@
         <h1 class="mt-4">Thông tin đơn hàng</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Dashboard</a></li>
-            <li class="breadcrumb-item active">Order</li>
+            <li class="breadcrumb-item active">Delete</li>
         </ol>
         <div class="card mb-4">
             <div class="card-body">
-                <h4>Đơn hàng</h4>
-
                 <div>
+                    <h4>Xóa đơn hàng</h4>
                     <hr />
                     <dl class="row">
                         <dt class="col-sm-2">
@@ -70,12 +68,16 @@
                             @Html.DisplayFor(model => model.Notes)
                         </dd>
                     </dl>
-                </div>
-                <div>
-                    <a asp-action="Index">Trở về</a>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                        <a asp-action="Index">Trở về</a>
+                    </form>
                 </div>
 
             </div>
         </div>
     </div>
 </main>
+

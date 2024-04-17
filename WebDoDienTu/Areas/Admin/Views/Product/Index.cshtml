@@ -53,7 +53,7 @@
                         {
                             <tr>
                                 <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Price) VND</td>
+                                <td>@item.Price.ToString("N0") VND</td>
                                 <td>@Html.DisplayFor(modelItem => item.Description)</td>
                                 <td><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" style="width:100px" /> <img /></td>
                                 <td>@Html.DisplayFor(modelItem => item.Category.CategoryName)</td>

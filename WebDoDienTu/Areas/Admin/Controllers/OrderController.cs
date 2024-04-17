@@ -26,5 +26,20 @@ namespace WebDoDienTu.Areas.Admin.Controllers
             var order = _context.Orders.Find(id);
             return View(order);
         }
+
+        public IActionResult Delete(int id)
+        {
+            var order = _context.Orders.Find(id);
+            return View(order);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

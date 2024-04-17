@@ -34,7 +34,7 @@ namespace WebDoDienTu.Controllers
             {
                 ProductId = productId,
                 NameProduct = product.ProductName,
-                Image = product.ImageUrl,
+                Image = product.ImageUrl ?? string.Empty,
                 Price = product.Price,
                 Quantity = quantity
             };

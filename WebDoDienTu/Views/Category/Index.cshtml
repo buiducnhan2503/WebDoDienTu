@@ -111,8 +111,8 @@
                                             <h4><a href="@Url.Action("Details", "Home")">@Html.DisplayFor(modelItem => item.ProductName)</a></h4>
                                             <p>@Html.DisplayFor(modelItem => item.Description)</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">@Html.DisplayFor(modelItem => item.Price)</p>
-                                                <a asp-action="AddToCart" asp-controller="GioHang" asp-route-id="@item.ProductId" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
+                                                <p class="text-dark fs-5 fw-bold mb-0">@item.Price.ToString("N0") VND</p>
+                                                <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@item.ProductId" asp-route-quantity="1" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
                                             </div>
                                         </div>
                                     </div>

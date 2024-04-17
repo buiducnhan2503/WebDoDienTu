@@ -29,22 +29,24 @@
                     </div>
                     <div class="col-lg-6">
                         <h4 class="fw-bold mb-3">@Model.ProductName</h4>
-                        <h5 class="fw-bold mb-3">@Model.Price VND</h5>
-                        <p class="mb-4">@Model.Description</p>                      
-                        <div class="input-group quantity mb-5" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                        <h5 class="fw-bold mb-3">@Model.Price.ToString("N0") VND</h5>
+                        <p class="mb-4">@Model.Description</p>      
+                        <form asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@Model.ProductId">
+                            <div class="input-group quantity mb-5" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control form-control-sm text-center border-0" value="1" name="quantity">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@Model.ProductId" asp-route-quantity="1" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
+                            <button class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</button>
+                        </form>
                     </div>
 
                 </div>

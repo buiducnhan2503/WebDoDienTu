@@ -45,33 +45,34 @@
                     @{
                         foreach (var item in Model.Items)
                         {
-                            <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img src="@item.Image" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4">@item.NameProduct</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">@item.Price $</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">@item.Quantity</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">@(item.Price * item.Quantity) $</p>
-                                </td>
-                                <td>
-                                    <a asp-area="" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">
-                                        <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                            <i class="fa fa-times text-danger"></i>
-                                        </button>
-                                    </a>                                   
-                                </td>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="d-flex align-items-center">
+                                            <img src="@item.Image" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <p class="mb-0 mt-4">@item.NameProduct</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4">@item.Price.ToString("N0") VND</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4">@item.Quantity</p>
+                                    </td>
+                                    <td>
+                                    @{var thanhtien = @item.Price * @item.Quantity;}
+                                        <p class="mb-0 mt-4">@thanhtien.ToString("N0") VND</p>
+                                    </td>
+                                    <td>
+                                        <a asp-area="" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">
+                                            <button class="btn btn-md rounded-circle bg-light border mt-4">
+                                                <i class="fa fa-times text-danger"></i>
+                                            </button>
+                                        </a>                                   
+                                    </td>
 
-                            </tr>
+                                </tr>
                         }
                     }
                     
@@ -85,7 +86,7 @@
                 <div class="bg-light rounded">
                     <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                         <h5 class="mb-0 ps-4 me-4">Tổng cộng</h5>
-                        <p id=total-price class="mb-0 pe-4">$99.00</p>
+                        <p class="mb-0 pe-4">@Model.Items.Sum(x => x.Price * x.Quantity).ToString("N0") VND</p>
                     </div>
                     <a asp-action="Checkout">
                         <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Tiến hành thanh toán</button>
@@ -96,32 +97,3 @@
     </div>
 </div>
 <!-- Cart Page End -->
-
-<script>
-    // Hàm để cập nhật tổng số tiền
-    function updateTotalPrice() {
-        // Lấy tất cả các dòng trong bảng sản phẩm
-        var rows = document.querySelectorAll(".table tbody tr");
-        var totalPrice = 0;
-
-        // Duyệt qua từng dòng và tính tổng số tiền
-        rows.forEach(function (row) {
-            // Lấy giá và số lượng của sản phẩm từ các ô trong dòng
-            var priceCell = row.querySelector("td:nth-child(3)");
-            var quantityCell = row.querySelector("td:nth-child(4)");
-
-            // Chuyển đổi giá và số lượng từ chuỗi sang số
-            var price = parseFloat(priceCell.innerText.replace("$", "").trim());
-            var quantity = parseInt(quantityCell.innerText.trim());
-
-            // Tính tổng số tiền từ mỗi sản phẩm và cộng vào tổng số tiền
-            totalPrice += price * quantity;
-        });
-
-        // Cập nhật nội dung của thẻ <p> với tổng số tiền mới
-        document.getElementById("total-price").innerText = totalPrice.toFixed(2) + " $"; // Hiển thị tổng số tiền với hai chữ số sau dấu thập phân
-    }
-
-    // Gọi hàm cập nhật tổng số tiền sau khi thêm sản phẩm vào giỏ hàng
-    updateTotalPrice();
-</script>
