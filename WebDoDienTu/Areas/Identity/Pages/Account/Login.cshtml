@@ -15,7 +15,7 @@
 </div>
 <!-- Single Page Header End -->
 
-<div class="container" style="margin-left: 440px">
+<div class="container" style="margin-left: 300px">
     <div class="row">
         <div class="col-md-4">
             <section>
@@ -48,6 +48,37 @@
                         </p>
                     </div>
                 </form>
+            </section>
+        </div>
+
+        <div class="col-md-6 col-md-offset-2" style=" margin-top:40px; margin-left:50px">
+            <section>
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
+                        <div>
+                            <p>
+                                There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                    article
+                                    about setting up this ASP.NET application to support logging in via external services
+                                </a>.
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button style="width:200px" type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
+                }
             </section>
         </div>
     </div>
