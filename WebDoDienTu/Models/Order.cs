@@ -12,6 +12,10 @@ namespace WebDoDienTu.Models
         public DateTime OrderDate { get; set; }
         [DisplayName("Tổng tiền")]
         public decimal TotalPrice { get; set; }
+
+        [DisplayName("Trạng thái")]
+        public string? Status { get; set; }
+
         [DisplayName("Họ")]
         public string FirstName { get; set; }
         [DisplayName("Tên")]

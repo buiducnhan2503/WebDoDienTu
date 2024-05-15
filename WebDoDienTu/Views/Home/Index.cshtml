@@ -68,6 +68,10 @@
                             <a asp-area="" asp-controller="Blog" asp-action="Index" class="nav-item nav-link">Tin tức</a>
                             <a asp-area="" asp-controller="Product" asp-action="Index" class="nav-item nav-link">Mua sắm</a>
                             <a asp-area="" asp-controller="Contact" asp-action="Index" class="nav-item nav-link">Liên hệ</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="nav-item nav-link">Trang quản trị</a>
+                            }
                         </div>
                         <div class="d-flex m-3 me-0">
                             <partial name="_LoginPartial" />
@@ -366,7 +370,7 @@
                                     <img src="@Html.DisplayFor(modelItem => product.ImageUrl)" class="img-fluid w-100 rounded-top" alt="">
                                     </div>
                                     <div class="p-4 rounded-bottom">
-                                    <h4><a href="#">@Html.DisplayFor(modelItem => product.ProductName)</a></h4>
+                                    <h4><a asp-action="Details" asp-controller="Product" asp-route-id="@product.ProductId">@Html.DisplayFor(modelItem => product.ProductName)</a></h4>
                                         <p>@Html.DisplayFor(modelItem => product.Description)</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0">@product.Price.ToString("N0") VND</p>

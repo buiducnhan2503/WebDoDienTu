@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PagedList;
 using WebDoDienTu.Models;
 using WebDoDienTu.Models.Repository;
 
@@ -15,23 +16,29 @@ namespace WebDoDienTu.Controllers
         }
 
         // Hiển thị tất cả sản phẩm sản phẩm
-        public IActionResult Index(string keywords)
+        public IActionResult Index(string? keywords, string? priceRange, int? page)
         {
-            // Lấy dữ liệu từ database và gán cho MyModel
-            MyModel model = new MyModel();
+            int pageSize = 10; // Số lượng sản phẩm trên mỗi trang
+            int pageNumber = (page ?? 1); // Trang hiện tại, mặc định là 1 nếu không có
 
             if (keywords != null) 
             {
-                model.Products = _context.Products.Where(x => x.ProductName.Contains(keywords)).ToList();
-                model.Categories = _context.Categories.ToList();
-                return View(model);
+                var item = _context.Products.Where(x => x.ProductName.Contains(keywords)).ToPagedList(pageNumber, pageSize);
+                return View(item);
             }
 
-            // Gán dữ liệu vào MyModel
-            model.Products = _context.Products.ToList();
-            model.Categories = _context.Categories.ToList();
+            if(priceRange != null)
+            {
+                var priceLimits = priceRange.Split('-').Select(int.Parse).ToList();
+                var minPrice = priceLimits[0];
+                var maxPrice = priceLimits[1];
 
-            return View(model);
+                // Lọc sản phẩm theo khoảng giá
+                var item = _context.Products.Where(x => x.Price >= minPrice && x.Price < maxPrice).ToPagedList(pageNumber, pageSize);
+                return View(item);
+            }
+            var products = _context.Products.ToPagedList(pageNumber, pageSize);
+            return View(products);
         }
 
         // Hiển thị chi tiết một sản phẩm

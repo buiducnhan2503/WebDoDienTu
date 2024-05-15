@@ -67,7 +67,7 @@ namespace WebDoDienTu.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Checkout()
+        public IActionResult Checkout(decimal finalPrice)
         {
             return View(new Order());
         }
@@ -75,7 +75,7 @@ namespace WebDoDienTu.Controllers
         public static Order orderTemp = new Order();
 
         [HttpPost]
-        public async Task<IActionResult> Checkout(Order order, string payment = "COD")
+        public async Task<IActionResult> Checkout(Order order, decimal finalPrice, string payment = "COD")
         {
             if(ModelState.IsValid)
             {

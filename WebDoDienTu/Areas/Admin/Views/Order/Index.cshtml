@@ -29,6 +29,8 @@
                             <th>@Html.DisplayNameFor(model => model.OrderDate)</th>
                             <th>@Html.DisplayNameFor(model => model.TotalPrice)</th>
                             <th>@Html.DisplayNameFor(model => model.Notes)</th>
+                            <th>@Html.DisplayNameFor(model => model.Status)</th>
+                            <th>Sửa</th>
                             <th>Xem</th>
                             <th>Xóa</th>
                         </tr>
@@ -44,6 +46,8 @@
                             <th>@Html.DisplayNameFor(model => model.OrderDate)</th>
                             <th>@Html.DisplayNameFor(model => model.TotalPrice)</th>
                             <th>@Html.DisplayNameFor(model => model.Notes)</th>
+                            <th>@Html.DisplayNameFor(model => model.Status)</th>
+                            <th>Sửa</th>
                             <th>Xem</th>
                             <th>Xóa</th>
                         </tr>
@@ -66,6 +70,13 @@
                                 <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
                                 <td>@item.TotalPrice.ToString("N0")</td>
                                 <td>@Html.DisplayFor(modelItem => item.Notes)</td>
+                                @{
+                                    string status = @item.Status == null ? "Chưa thanh toán" : "Đã thanh toán";
+                                    <td>@status</td>
+                                }
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa-regular fa-pen-to-square"></i></a>
+                                </td>
                                 <td>
                                     <a asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-eye"></i></a>
                                 </td>

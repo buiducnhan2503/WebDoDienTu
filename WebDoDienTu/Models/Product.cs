@@ -31,6 +31,8 @@ namespace WebDoDienTu.Models
         [ForeignKey("Category")]
         [DisplayName("Loại sản phẩm")]
         public int CategoryId { get; set; }
+
+        [DisplayName("Loại sản phẩm")]
         public Category? Category { get; set; }
     }
 }

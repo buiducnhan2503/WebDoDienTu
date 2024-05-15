@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using WebDoDienTu.Models;
 
 namespace WebDoDienTu.Controllers
@@ -17,16 +19,13 @@ namespace WebDoDienTu.Controllers
             return View();
         }
 
-        public IActionResult ProductCategory(int id)
+        public IActionResult ProductCategory(string category)
         {
-            // Lấy dữ liệu từ database và gán cho MyModel
-            MyModel model = new MyModel();
-
-            // Gán dữ liệu vào MyModel
-            model.Products = _context.Products.Where(x => x.CategoryId == id).ToList();
-            model.Categories = _context.Categories.ToList();
-
-            return View(model);
+            var item = _context.Products
+            .Include(p => p.Category)
+            .AsEnumerable()
+                    .Where(x => x.Category.CategoryName.Equals(category, StringComparison.OrdinalIgnoreCase)).ToList();
+            return View(item);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model WebDoDienTu.Models.MyModel
+﻿@model IEnumerable<WebDoDienTu.Models.Product>
 @{
     ViewData["Title"] = "ProductCategory";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,7 +37,7 @@
 
                     </div>
                     <div class="col-6"></div>
-                    <div class="col-xl-3">
+                    @* <div class="col-xl-3">
                         <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
                             <label for="fruits">Default Sorting:</label>
                             <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
@@ -46,7 +46,7 @@
                                 <option value="opel">Giá</option>
                             </select>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3">
@@ -55,43 +55,63 @@
                                 <div class="mb-3">
                                     <h4>Danh mục</h4>
                                     <ul class="list-unstyled fruite-categorie">
-                                        @{
-                                            int count = 0;
-
-                                            foreach (var item in Model.Categories)
-                                            {
-                                                foreach (var product in Model.Products)
-                                                {
-                                                    if (product.CategoryId == item.CategoryId)
-                                                    {
-                                                        count++;
-                                                    }
-                                                }
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="@Url.Action("ProductCategory", "Category", new { Id = item.CategoryId })">
-                                                            <i class="fas fa-apple-alt me-2"></i>@item.CategoryName
-                                                        </a>
-                                                        <span>(@count)</span>
-                                                    </div>
-                                                </li>
-                                                count = 0;
-                                            }
-                                        }
+                                        <li>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a asp-controller="Category" asp-action="ProductCategory" asp-route-category="Điện thoại">
+                                                    <i class="fas fa-apple-alt me-2"></i>Điện thoại
+                                                </a>
+                                            </div>
+                                            <div class="d-flex justify-content-between fruite-name">
+                                                <a asp-controller="Category" asp-action="ProductCategory" asp-route-category="Laptop">
+                                                    <i class="fas fa-apple-alt me-2"></i>Laptop
+                                                </a>
+                                            </div><div class="d-flex justify-content-between fruite-name">
+                                                <a asp-controller="Category" asp-action="ProductCategory" asp-route-category="Âm thanh">
+                                                    <i class="fas fa-apple-alt me-2"></i>Âm thanh
+                                                </a>
+                                            </div><div class="d-flex justify-content-between fruite-name">
+                                                <a asp-controller="Category" asp-action="ProductCategory" asp-route-category="Phụ kiện">
+                                                    <i class="fas fa-apple-alt me-2"></i>Phụ kiện
+                                                </a>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-                            @*                             <div class="col-lg-12">
-                            <div class="mb-3">
-                            <h4 class="mb-2">Giá</h4>
-                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                            <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <form asp-controller="Product" asp-action="Index" method="get">
+                                        <div class="form-group">
+                                            <label for="priceRange">Khoảng giá:</label>
+                                            <select class="form-control" id="priceRange" name="priceRange">
+                                                <option value="0-500000">Dưới 500.000 VND</option>
+                                                <option value="5000000-1000000">500.000 - Dưới 1.000.000 VND</option>
+                                                <option value="1000000-5000000">1.000.000 - Dưới 5.000.000 VND</option>
+                                                <option value="5000000-10000000">5.000.000 - Dưới 10.000.000 VND</option>
+                                                <option value="10000000-20000000">10.000.000 - Dưới 20.000.000 VND</option>
+                                            </select>
+                                        </div>
+                                        <br />
+                                        <button type="submit" class="btn btn-primary">Lọc</button>
+                                    </form>
+
+                                    <script>
+                                        // Lấy giá trị đã chọn từ URL (nếu có) và cập nhật lại menu thả xuống
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            const urlParams = new URLSearchParams(window.location.search);
+                                            const priceRange = urlParams.get('priceRange');
+                                            if (priceRange) {
+                                                document.getElementById('priceRange').value = priceRange;
+                                            }
+                                        });
+                                    </script>
+
+                                </div>
                             </div>
-                            </div> *@
                             <div class="col-lg-12">
                                 <div class="position-relative">
                                     <img src="img/banners/banner-12.jpg" class="img-fluid w-100 rounded" alt="">
-                                    @*                                     <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                    @*<div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
                                     <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
                                     </div> *@
                                 </div>
@@ -101,7 +121,7 @@
                     <div class="col-lg-9">
                         <div class="row g-4 justify-content-center">
 
-                            @foreach (var item in Model.Products)
+                            @foreach (var item in Model)
                             {
                                 <div class="col-md-6 col-lg-6 col-xl-4">
                                     <div class="border border-primary rounded position-relative vesitable-item" style="height:550px; width: 300px; margin: 15px">
@@ -109,18 +129,17 @@
                                             <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="img-fluid w-100 rounded-top" alt="">
                                         </div>
                                         <div class="p-4 rounded-bottom">
-                                            <h4><a href="@Url.Action("Details", "Home")">@Html.DisplayFor(modelItem => item.ProductName)</a></h4>
+                                            <h4><a asp-action="Details" asp-controller="Product" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.ProductName)</a></h4>
                                             <p>@Html.DisplayFor(modelItem => item.Description)</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">@item.Price.ToString("N0") VND</p>
                                                 <a asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@item.ProductId" asp-route-quantity="1" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Thêm giỏ hàng</a>
                                                 @* <form asp-action="AddToCart" asp-controller="Cart" method="post">
-                                            <input type="hidden" name="productId" value="@item.ProductId" />
-                                            <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
-                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm giỏ hàng
-                                            </button>
-                                            </form> *@
-
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm giỏ hàng
+                                                    </button>
+                                                    </form> *@
                                             </div>
                                         </div>
                                     </div>

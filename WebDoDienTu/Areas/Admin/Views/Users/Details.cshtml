@@ -1,4 +1,4 @@
-﻿@model WebDoDienTu.Models.Order
+﻿@model WebDoDienTu.Models.ApplicationUser
 
 @{
     ViewData["Title"] = "Details";
@@ -7,18 +7,23 @@
 
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Thông tin đơn hàng</h1>
+        <h1 class="mt-4">Thông tin người dùng</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a asp-area="admin" asp-controller="Home" asp-action="Index">Dashboard</a></li>
-            <li class="breadcrumb-item active">Order</li>
+            <li class="breadcrumb-item active">Detail User</li>
         </ol>
         <div class="card mb-4">
             <div class="card-body">
-                <h4>Đơn hàng</h4>
-
+                <h4>Người dùng</h4>
                 <div>
                     <hr />
                     <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.UserName)
+                        </dd>
                         <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.FirstName)
                         </dt>
@@ -32,22 +37,10 @@
                             @Html.DisplayFor(model => model.LastName)
                         </dd>
                         <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.OrderDate)
+                            @Html.DisplayNameFor(model => model.Age)
                         </dt>
                         <dd class="col-sm-10">
-                            @Html.DisplayFor(model => model.OrderDate)
-                        </dd>
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.TotalPrice)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @Model.TotalPrice.ToString("N0") VND
-                        </dd>
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.Phone)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @Html.DisplayFor(model => model.Phone)
+                            @Html.DisplayFor(model => model.Age)
                         </dd>
                         <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.Email)
@@ -56,33 +49,25 @@
                             @Html.DisplayFor(model => model.Email)
                         </dd>
                         <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.PhoneNumber)
+                        </dd>
+                        <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.Address)
                         </dt>
                         <dd class="col-sm-10">
                             @Html.DisplayFor(model => model.Address)
                         </dd>
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.Notes)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @Html.DisplayFor(model => model.Notes)
-                        </dd>
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.Status)
-                        </dt>
-                        <dd class="col-sm-10">
-                            @{
-                                string status = Model.Status == null ? "Chưa thanh toán" : "Đã thanh toán";
-                                <td>@status</td>
-                            }
-                        </dd>
                     </dl>
                 </div>
                 <div>
+                    <a asp-action="Edit" asp-route-id="@Model?.Id">Cập nhật</a> |
                     <a asp-action="Index">Trở về</a>
                 </div>
-
             </div>
         </div>
     </div>
 </main>
+

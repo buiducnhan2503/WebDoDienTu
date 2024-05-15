@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebDoDienTu.Models;
 
 namespace WebDoDienTu.Areas.Admin.Controllers
@@ -15,10 +16,35 @@ namespace WebDoDienTu.Areas.Admin.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        [Route("api/orders")]
+        public async Task<IActionResult> GetOrders()
+        {
+            // Thực hiện truy vấn SQL Server để lấy dữ liệu đơn hàng
+            var orders = await _context.Orders.ToListAsync();
+
+            // Trả về dữ liệu dưới dạng phản hồi JSON
+            return Ok(orders);
+        }
+
+
         public IActionResult Index()
         {
             var orders = _context.Orders.ToList();
             return View(orders);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Order order)
+        {
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Details(int id)
@@ -39,6 +65,24 @@ namespace WebDoDienTu.Areas.Admin.Controllers
             var order = await _context.Orders.FindAsync(id);
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var item = _context.Orders.Find(id);
+            return View(item);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, Order order)
+        {
+            if(id != order.Id)
+            {
+                return NotFound();
+            }
+            _context.Orders.Update(order);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
     }
